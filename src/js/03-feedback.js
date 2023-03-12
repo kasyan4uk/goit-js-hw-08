@@ -6,14 +6,14 @@ let formData = JSON.parse(localStorage.getItem(LOCAL_KEY)) || {};
 form = document.querySelector('form');
 
 form.addEventListener('input', throttle(storageFormData, 500));
+form.addEventListener('submit', onFormSubmit);
+
+reloadPage();
 
 function storageFormData(e) {
   formData[e.target.name] = e.target.value.trim();
   localStorage.setItem(LOCAL_KEY, JSON.stringify(formData));
 }
-
-
-form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
@@ -23,8 +23,6 @@ function onFormSubmit(e) {
   localStorage.removeItem(LOCAL_KEY);
   formData = {};
 }
-
-reloadPage();
 
 function reloadPage() {
   if (formData) {
